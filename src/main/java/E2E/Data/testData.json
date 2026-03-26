@@ -1,0 +1,63 @@
+{
+  "Success_login": {
+    "email": "standard_user",
+    "password": "secret_sauce",
+    "productName": "Sauce Labs Bolt T-Shirt"
+  },
+  "CheckOutForm": {
+    "firstName": "Nandhini",
+    "lastName": "Sharath",
+    "pincode": "600029"
+  },
+  "Multiple_Login": [
+    {
+      "email": "nandhinidevi958@gmail.com",
+      "password": "Carat@2020"
+    },
+    {
+      "email": "nandhinidevi959@gmail.com",
+      "password": "Carat@2020"
+    }
+  ],
+  "InvalidLogin":
+  {
+    "email": "standard_user",
+    "password": "Wecret_sauce"
+  },
+
+  "InvalidFormData":
+  [
+    {
+      "firstName": null,
+      "lastName": null,
+      "pincode": null
+    },
+    {
+      "firstName": "Nandhini",
+      "lastName": null,
+      "pincode": null
+    },
+    {
+      "firstName": "Nandhini",
+      "lastName": "Devi",
+      "pincode": null
+    }
+  ],
+
+  "Categories": [{
+    "name": "Women",
+    "sb1" : "Dress",
+    "sb2" : "Tops",
+    "sb3" : "Saree"
+  },
+    {
+      "name": "Men",
+      "sb1" : "TShirts",
+      "sb2" : "Jeans"
+    },
+    {
+      "name": "Kids",
+      "sb1" : "Dress",
+      "sb2" : "Tops & Shirts"
+    }]
+}
