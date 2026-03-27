@@ -27,7 +27,7 @@ public FinalPage finalpage;
     public void SubmitOrder()
     {
         signIn.LoginUser(dataReaderObj.getEmail(),dataReaderObj.getPassword());
-   String buttonName = productspage.AddtoCart(dataReaderObj.getProductName());
+   String buttonName = productpage.AddtoCart(dataReaderObj.getProductName());
    Assert.assertTrue(buttonName.trim().equalsIgnoreCase("Remove"));
   boolean flag = cartPage.VerifyCartPage(dataReaderObj.getProductName());
   Assert.assertTrue(flag);
