@@ -85,6 +85,7 @@ public class DataReader {
 
 
 //getter setter for multiple set of data
+    @JsonProperty("Multiple_Login")
     public void setMultiple_Login(List<Map<String,String>> MultipleLoginList)
     {
         this.MultipleLoginList = MultipleLoginList;

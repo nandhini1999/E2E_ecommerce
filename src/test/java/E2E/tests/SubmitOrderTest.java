@@ -15,7 +15,7 @@ public CartPage cartPage;
 public CheckOutPage checkoutpage;
 public FinalPage finalpage;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() {
         productpage = new ProductsPage(driver);
        cartPage = new CartPage(driver);
@@ -23,7 +23,7 @@ public FinalPage finalpage;
        finalpage = new FinalPage(driver);
     }
 
-    @Test
+    @Test(groups={"SubmitOrder"})
     public void SubmitOrder()
     {
         signIn.LoginUser(dataReaderObj.getEmail(),dataReaderObj.getPassword());

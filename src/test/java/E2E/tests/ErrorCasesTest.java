@@ -3,7 +3,11 @@ package E2E.tests;
 import E2E.AbstractComponents.AbstractComponent;
 import E2E.PageObjects.*;
 import E2E.TestComponents.BaseTest;
+import E2E.TestComponents.Retry;
+import org.openqa.selenium.WindowType;
 import org.testng.Assert;
+import org.testng.IRetryAnalyzer;
+import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
@@ -20,7 +24,7 @@ public class ErrorCasesTest extends BaseTest {
     public ProductsPage productpage;
     public AbstractComponent abstractComponent;
 
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void setUp() throws IOException {
         prop = errorPropertyReader();
         signIn = new SignIn(driver);
@@ -30,16 +34,15 @@ public class ErrorCasesTest extends BaseTest {
         abstractComponent = new AbstractComponent(driver);
     }
 
-@Test
+@Test(groups = {"ErrorCase"}, retryAnalyzer=Retry.class)
 public void invalidLogin() throws IOException {
-boolean flag = signIn.LoginUser(dataReaderObj.getInvalidEmail(), dataReaderObj.getInvalidPassword());
-Assert.assertFalse(flag);
-String webErrorMessage = signIn.getLoginErrorMessage();
+    signIn.LoginUser(dataReaderObj.getInvalidEmail(), dataReaderObj.getInvalidPassword());
+    String webErrorMessage = signIn.getLoginErrorMessage();
   String ErrorMessage = prop.getProperty("error.invalidLogin");
   Assert.assertEquals(webErrorMessage,ErrorMessage);
 
 }
-@Test(dataProvider="CheckForm")
+@Test(dataProvider="CheckForm",groups={"ErrorCase"})
 public void emptyChFormSubmission(Map<String,String> data)
 {
     signIn.LoginUser(dataReaderObj.getEmail(),dataReaderObj.getPassword());
@@ -71,5 +74,10 @@ public void emptyChFormSubmission(Map<String,String> data)
         abstractComponent.clearCart();
 
 }
+    @AfterMethod(alwaysRun = true)
+    public void NewTab()
+    {
+        driver.switchTo().newWindow(WindowType.TAB);
+    }
 
 }

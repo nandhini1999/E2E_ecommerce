@@ -23,10 +23,10 @@ import java.util.Properties;
 public class BaseTest {
     public WebDriver driver;
     public Properties prop;
-    public DataReader dataReaderObj;
+    public static DataReader dataReaderObj;
     public Object[][] result;
     public SignIn signIn;
-    @BeforeClass
+    @BeforeClass(alwaysRun = true)
     public void InitiateBrowser() throws IOException {
         prop = new Properties();
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\resources\\Global.Properties");
@@ -61,12 +61,13 @@ public class BaseTest {
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
-    @BeforeClass
-    public void jsonReader()
+    @BeforeSuite(alwaysRun = true)
+    public DataReader jsonReader()
     {
         ObjectMapper mapper = new ObjectMapper();
        String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\Data\\testData.json";
        dataReaderObj = mapper.readValue(new File(path), DataReader.class);
+       return dataReaderObj;
     }
 
 
@@ -80,6 +81,7 @@ public class BaseTest {
     @DataProvider(name  = "CheckForm")
     public Object[][] getCheckFormData()
     {
+        dataReaderObj = jsonReader();
         List<Map<String,String>> dataList = dataReaderObj.getInvalidChForm();
         Object[][] ChResult = new Object[dataList.size()][1];
 
@@ -94,6 +96,7 @@ public class BaseTest {
     @DataProvider(name="Multiple login")
     public Object[][] multiLoginObject()
     {
+        dataReaderObj = jsonReader();
       List<Map<String,String>> dataList =  dataReaderObj.getMultipleLogin();
       result = new Object[dataList.size()][1];
       for(int i=0;i<dataList.size();i++)
@@ -110,19 +113,14 @@ public class BaseTest {
      return screenShotPath;
     }
 
-    @BeforeMethod
+    @BeforeMethod(alwaysRun = true)
     public void openWeb() {
         String Liveurl = prop.getProperty("url");
         driver.get(Liveurl);
         signIn = new SignIn(driver);
     }
-    @AfterMethod
-    public void CloseTab()
-    {
-      driver.switchTo().newWindow(WindowType.TAB);
-    }
 
-    @AfterClass
+    @AfterClass(alwaysRun = true)
     public void driverTerminate()
     {
         driver.quit();

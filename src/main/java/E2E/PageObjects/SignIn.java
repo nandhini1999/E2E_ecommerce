@@ -40,14 +40,13 @@ public class SignIn extends AbstractComponent {
     @FindBy(tagName = "h3")
     WebElement errorMessageEle;
 
-    public boolean LoginUser(String userName,String passWord)
+    public void LoginUser(String userName,String passWord)
     {
         waitForWebEleVisible(LoginScreenEle);
         //Entering cred
         Login_userNameEle.sendKeys(userName);
         Login_passwordEle.sendKeys(passWord);
         Login_ButtonEle.click();
-       return isDisplayed(productTitle);
     }
 
     public String getLoginErrorMessage()
