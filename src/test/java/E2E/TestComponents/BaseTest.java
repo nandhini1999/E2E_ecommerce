@@ -29,24 +29,34 @@ public class BaseTest {
     public DataReader dataReaderObj;
     public Object[][] result;
     public SignIn signIn;
-    public ProductsPage productspage;
-
     @BeforeClass
     public void InitiateBrowser() throws IOException {
         prop = new Properties();
         FileInputStream fis = new FileInputStream(System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\resources\\Global.Properties");
         prop.load(fis);
-        String browserName = prop.getProperty("browser");
+        String browserName =
+       (System.getProperty("browser")!=null)? System.getProperty("browser") :  prop.getProperty("browser");
 
         if(browserName.equalsIgnoreCase("Chrome"))
         {
             ChromeOptions options = new ChromeOptions();
-            Map<String, Object> prefs = new HashMap<>();
-            prefs.put("profile.password_manager_leak_detection", false);
-            options.setExperimentalOption("prefs", prefs);
+            if(browserName.contains("headless"))
+            {
+                options.addArguments("--headless");
+                options.addArguments("--window-size=2000,900");
+            }
+            else
+            {
+                Map<String, Object> prefs = new HashMap<>();
+                prefs.put("profile.password_manager_leak_detection", false);
+                options.setExperimentalOption("prefs", prefs);
+                driver.manage().window().maximize();
+            }
+
             driver = new ChromeDriver(options);
+
+
         }
-        driver.manage().window().maximize();
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
@@ -100,7 +110,7 @@ public class BaseTest {
     }
 
     @BeforeMethod
-    public void openWeb() throws IOException {
+    public void openWeb() {
         String Liveurl = prop.getProperty("url");
         driver.get(Liveurl);
         signIn = new SignIn(driver);
