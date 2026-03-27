@@ -8,10 +8,11 @@ import org.openqa.selenium.WebDriver;
 import org.testng.ITestContext;
 import org.testng.ITestListener;
 import org.testng.ITestResult;
+import org.testng.annotations.BeforeClass;
 
 import java.io.IOException;
 
-public class Listener extends BaseTest implements ITestListener {
+public class Listener implements ITestListener {
 
     private ExtentReports extentReport = ExtentReportTG.getExtentTest();
     private ExtentTest extentTest;
@@ -44,7 +45,8 @@ public class Listener extends BaseTest implements ITestListener {
 
         String TestCaseName = result.getMethod().getMethodName();
         try {
-          path =  getScreenshot(TestCaseName,driver);
+            BaseTest baseTest = (BaseTest) result.getInstance();
+          path =  baseTest.getScreenshot(TestCaseName,driver);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
