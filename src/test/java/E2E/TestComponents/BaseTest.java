@@ -56,8 +56,11 @@ public class BaseTest {
                 driver.manage().window().maximize();
             }
 
+            else {
+                driver.manage().window().setSize(new Dimension(2000,900)); // for full screen
+            }
+
         }
-        driver.manage().window().setSize(new Dimension(2000,900)); // for full screen
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 
