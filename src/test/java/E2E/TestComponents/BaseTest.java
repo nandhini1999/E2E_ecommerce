@@ -3,10 +3,7 @@ package E2E.TestComponents;
 import E2E.PageObjects.ProductsPage;
 import E2E.PageObjects.SignIn;
 import org.apache.commons.io.FileUtils;
-import org.openqa.selenium.OutputType;
-import org.openqa.selenium.TakesScreenshot;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WindowType;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.annotations.*;
@@ -37,26 +34,30 @@ public class BaseTest {
         String browserName =
        (System.getProperty("browser")!=null)? System.getProperty("browser") :  prop.getProperty("browser");
 
-        if(browserName.equalsIgnoreCase("Chrome"))
+        if(browserName.contains("chrome"))
         {
             ChromeOptions options = new ChromeOptions();
+            Map<String, Object> prefs = new HashMap<>();
+            prefs.put("profile.password_manager_leak_detection", false);
+            options.setExperimentalOption("prefs", prefs);
+
             if(browserName.contains("headless"))
             {
                 options.addArguments("--headless");
                 options.addArguments("--window-size=2000,900");
+                options.addArguments("--no-sandbox");
+                options.addArguments("--disable-dev-shm-usage");
+                options.addArguments("--force-device-scale-factor=1");
             }
-            else
+            driver = new ChromeDriver(options);
+
+            if(!browserName.contains("headless"))
             {
-                Map<String, Object> prefs = new HashMap<>();
-                prefs.put("profile.password_manager_leak_detection", false);
-                options.setExperimentalOption("prefs", prefs);
                 driver.manage().window().maximize();
             }
 
-            driver = new ChromeDriver(options);
-
-
         }
+        driver.manage().window().setSize(new Dimension(2000,900)); // for full screen
         driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
     }
 

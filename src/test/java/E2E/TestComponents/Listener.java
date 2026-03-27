@@ -33,6 +33,12 @@ public class Listener implements ITestListener {
 
     public void onTestFailure(ITestResult result)
     {
+
+        if (extentThread.get() == null) {
+            ExtentTest test = extentReport.createTest(result.getMethod().getMethodName());
+            extentThread.set(test);
+        }
+
         String path= null;
         WebDriver driver=null;
         extentThread.get().fail(result.getThrowable());
@@ -40,7 +46,7 @@ public class Listener implements ITestListener {
         try {
             driver = (WebDriver)result.getTestClass().getRealClass().getField("driver").get(result.getInstance());
         } catch (Exception e) {
-            System.out.println(e);
+            throw new RuntimeException(e);
         }
 
         String TestCaseName = result.getMethod().getMethodName();

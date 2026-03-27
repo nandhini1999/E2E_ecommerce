@@ -44,7 +44,6 @@ public void emptyChFormSubmission(Map<String,String> data)
 {
     signIn.LoginUser(dataReaderObj.getEmail(),dataReaderObj.getPassword());
     String buttonName = productpage.AddtoCart(dataReaderObj.getProductName());
-    System.out.println("Button Name"+buttonName);
     Assert.assertTrue(buttonName.trim().equalsIgnoreCase("Remove"));
     boolean flag = cartPage.VerifyCartPage(dataReaderObj.getProductName());
     Assert.assertTrue(flag);

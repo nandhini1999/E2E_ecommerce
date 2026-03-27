@@ -21,7 +21,7 @@ public class AbstractComponent {
     public AbstractComponent(WebDriver driver)
     {
         this.driver = driver;
-        wait = new WebDriverWait(driver,Duration.ofSeconds(10));
+        wait = new WebDriverWait(driver,Duration.ofSeconds(5));
         PageFactory.initElements(driver,this);
     }
 
@@ -89,6 +89,7 @@ public class AbstractComponent {
 
     public void EleScroll(WebElement ele)
     {
+        waitForWebEleVisible(ele);
        JavascriptExecutor js = (JavascriptExecutor) driver;
        js.executeScript("arguments[0].scrollIntoView(true)",ele);
     }

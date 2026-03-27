@@ -38,11 +38,11 @@ public class ProductsPage extends AbstractComponent {
             waitForWebEleVisible(ele);
             WebElement subEleName = ele.findElement(By.cssSelector(".inventory_item_label a div"));
             waitForWebEleVisible(subEleName);
-
-           if(subEleName.getText().contains(productName))
+           if(subEleName.getText().trim().equalsIgnoreCase(productName))
            {
                subEleAddTocart = ele.findElement(By.cssSelector(".pricebar button"));
                waitForWebEleVisible(subEleAddTocart);
+               EleScroll(subEleAddTocart);
                subEleAddTocart.click();
                break;
            }
