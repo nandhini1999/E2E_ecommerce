@@ -73,6 +73,14 @@ public class BaseTest {
        return dataReaderObj;
     }
 
+    public Map<String,String> getQueries()
+    {
+        ObjectMapper mapper = new ObjectMapper();
+        String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\Data\\queries.json";
+       Map<String,String> data = mapper.readValue(new File(path),new TypeReference<Map<String,String>>(){});
+       return data;
+    }
+
 
     public Properties errorPropertyReader() throws IOException {
         Properties errorProp = new Properties();

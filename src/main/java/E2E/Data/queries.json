@@ -1,0 +1,6 @@
+{
+  "getName": "select name from employee_details where id=?",
+  "getIds": "select id from employee_details",
+  "getAllNames" : "select name from employee_details where id IN(?)",
+  "getCred": "select username,password from loginDetails where id = ?"
+}
