@@ -48,15 +48,17 @@ public class Listener implements ITestListener {
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
+        if(driver!=null) {
 
-        String TestCaseName = result.getMethod().getMethodName();
-        try {
-            BaseTest baseTest = (BaseTest) result.getInstance();
-          path =  baseTest.getScreenshot(TestCaseName,driver);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
+            String TestCaseName = result.getMethod().getMethodName();
+            try {
+                BaseTest baseTest = (BaseTest) result.getInstance();
+                path = baseTest.getScreenshot(TestCaseName, driver);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            extentThread.get().addScreenCaptureFromPath(path, result.getMethod().getMethodName());
         }
-        extentThread.get().addScreenCaptureFromPath(path,result.getMethod().getMethodName());
     }
 
     public void onFinish(ITestContext context)
