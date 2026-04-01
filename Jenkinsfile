@@ -31,7 +31,7 @@ pipeline {
 
         stage('Run Test with user defined params on runtime') {
              when {
-                        expression {!params.ParallelRun="true"}
+                        expression {params.ParallelRun!="true"}
                     }
             steps {
                 bat "mvn clean test -P${params.ProfileName} -DbrowserName=${params.browserName}"
