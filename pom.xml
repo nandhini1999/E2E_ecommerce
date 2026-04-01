@@ -10,7 +10,7 @@
 
     <profiles>
         <profile>
-            <id>Test1</id>
+            <id>OrderPlacement</id>
             <build>
                     <plugins>
                         <plugin>
