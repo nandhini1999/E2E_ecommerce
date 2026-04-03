@@ -8,6 +8,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -36,7 +37,7 @@ public class InternetheroTest extends BaseTest {
         a.dragAndDrop(dragEle,dropEle).build().perform();
     }
 
-    @Test
+    @Test(enabled = false)
     public void Dropdown()
     {
         driver.get("https://the-internet.herokuapp.com/dropdown");
@@ -47,4 +48,22 @@ public class InternetheroTest extends BaseTest {
 
     }
 
+    @Test(enabled = false)
+    public void fileUpload() throws InterruptedException {
+        driver.get("https://the-internet.herokuapp.com/upload");
+        WebElement upload = driver.findElement(By.id("file-upload"));
+        String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\text.txt";
+        upload.sendKeys(path);
+        driver.findElement(By.id("file-submit")).click();
+        String title = driver.findElement(By.tagName("h3")).getText();
+        Assert.assertEquals(title,"File Uploaded!");
+    }
+
+    @Test(description = "Verifying the download")
+    public void fileDownload() throws InterruptedException {
+        driver.get("https://the-internet.herokuapp.com/download");
+        //added prefs in baseTest while browser initialization
+        driver.findElement(By.xpath("//a[text()='Image1.png']")).click();
+        Thread.sleep(4000);
+    }
 }
