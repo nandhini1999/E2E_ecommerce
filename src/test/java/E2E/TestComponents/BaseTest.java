@@ -38,6 +38,7 @@ public class BaseTest {
         {
             ChromeOptions options = new ChromeOptions();
             Map<String, Object> prefs = new HashMap<>();
+            prefs.put("download.default_directory",System.getProperty("user.home")+"\\DownloadHere");
             prefs.put("profile.password_manager_leak_detection", false);
             options.setExperimentalOption("prefs", prefs);
 
