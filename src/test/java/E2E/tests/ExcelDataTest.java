@@ -1,12 +1,19 @@
 package E2E.tests;
 
+import E2E.TestComponents.BaseTest;
 import E2E.resources.ExcelReader;
+import org.apache.poi.ss.usermodel.Cell;
+import org.apache.poi.ss.usermodel.CellType;
 import org.apache.poi.ss.usermodel.DataFormatter;
 import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
+import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -18,7 +25,7 @@ public class ExcelDataTest {
     @DataProvider(name="getAllRows")
     public Object[][] getData() throws IOException {
         DataFormatter formatter = new DataFormatter();
-        XSSFSheet sheet = excelReader.getExcelData();
+        XSSFSheet sheet = excelReader.getExcelData("exceldemo");
         int rowCount = sheet.getPhysicalNumberOfRows(); //all value present count
         Iterator<Row> rows = sheet.iterator();
         Row Header = rows.next(); // you are in header row now
@@ -45,5 +52,12 @@ public class ExcelDataTest {
     public void getRowBySno() throws IOException {
        ArrayList a = excelReader.getRowValue(1);
        System.out.println(a);
+    }
+
+    @Test
+    public void writeExcel() throws IOException {
+        String ExcelPath = System.getProperty("user.home") + "\\Downloads\\exceldemo1.xlsx";
+        boolean updateFlag = excelReader.getUpdateFlag(ExcelPath,"Apple","price",569);
+        Assert.assertTrue(updateFlag);
     }
 }
