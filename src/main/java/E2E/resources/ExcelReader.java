@@ -17,18 +17,22 @@ import java.util.Iterator;
 
 public class ExcelReader {
 
-    public XSSFSheet getExcelData(String filename) throws IOException {
+    public XSSFSheet getExcelData(String filename,String sheetName) throws IOException {
+        int indexOfSheet = 0;
         String ExcelPath = System.getProperty("user.home") + "\\Downloads\\"+filename+".xlsx";
         FileInputStream fis = new FileInputStream(ExcelPath);
         XSSFWorkbook workbook = new XSSFWorkbook(fis);
-
-        int indexOfSheet = workbook.getSheetIndex("Main");
+        if(sheetName!=null) {
+             indexOfSheet = workbook.getSheetIndex(sheetName);
+        }
+        else {
+         indexOfSheet = workbook.getSheetIndex("Main");}
         return workbook.getSheetAt(indexOfSheet);
     }
 
     public ArrayList getRowValue(int rowSno) throws IOException {
         ArrayList a = new ArrayList();
-        XSSFSheet sheet = this.getExcelData("exceldemo");
+        XSSFSheet sheet = this.getExcelData("exceldemo","Main");
         Iterator<Row> rows = sheet.iterator();
 
         int rowCount = sheet.getLastRowNum();
@@ -52,6 +56,36 @@ public class ExcelReader {
             }
         }
         return a;
+    }
+
+    public ArrayList<String> getInputRow(String filename,String sheetName,String TestcaseName) throws IOException {
+
+        XSSFSheet sheet = this.getExcelData(filename,sheetName);
+        Iterator<Row> rows = sheet.iterator();
+        ArrayList<String> a = new ArrayList<String>();
+
+        while(rows.hasNext())
+        {
+            Row currentRow = rows.next();
+            int cellCount = currentRow.getLastCellNum();
+            if(currentRow.getCell(0).getStringCellValue().equalsIgnoreCase(TestcaseName))
+            {
+
+               for(int i=1;i<cellCount;i++) {
+                   if(currentRow.getCell(i).getCellType()==CellType.STRING) {
+                       a.add(currentRow.getCell(i).getStringCellValue());
+                   }
+                   else
+                   {
+                     String value = String.valueOf(currentRow.getCell(i).getNumericCellValue());
+                       a.add(value);
+                   }
+               }
+               break;
+            }
+        }
+        return a;
+
     }
 
     private int getColumnIndex(String path,String columnName) throws IOException {

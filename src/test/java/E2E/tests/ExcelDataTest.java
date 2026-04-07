@@ -25,7 +25,7 @@ public class ExcelDataTest {
     @DataProvider(name="getAllRows")
     public Object[][] getData() throws IOException {
         DataFormatter formatter = new DataFormatter();
-        XSSFSheet sheet = excelReader.getExcelData("exceldemo");
+        XSSFSheet sheet = excelReader.getExcelData("exceldemo","Main");
         int rowCount = sheet.getPhysicalNumberOfRows(); //all value present count
         Iterator<Row> rows = sheet.iterator();
         Row Header = rows.next(); // you are in header row now
