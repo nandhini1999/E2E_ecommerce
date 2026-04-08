@@ -1,12 +1,11 @@
 package E2E.TestComponents;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.openqa.selenium.json.Json;
 
 import java.util.List;
 import java.util.Map;
 
-public class DataReader {
+public class JsonPOJO {
 
     private String email;
     private String password;

@@ -8,7 +8,7 @@ import org.testng.annotations.Test;
 
 import static io.restassured.RestAssured.*;
 
-public class OAuth {
+public class OAuthTests {
 
     String access_token = null;
 

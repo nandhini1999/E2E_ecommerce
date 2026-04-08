@@ -1,6 +1,5 @@
 package E2E.TestComponents;
 
-import E2E.PageObjects.ProductsPage;
 import E2E.PageObjects.SignIn;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
@@ -12,7 +11,6 @@ import tools.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -23,7 +21,7 @@ import java.util.Properties;
 public class BaseTest {
     public WebDriver driver;
     public Properties prop;
-    public static DataReader dataReaderObj;
+    public static JsonPOJO dataReaderObj;
     public Object[][] result;
     public SignIn signIn;
     @BeforeClass(alwaysRun = true)
@@ -66,11 +64,11 @@ public class BaseTest {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public DataReader jsonReader()
+    public JsonPOJO jsonReader()
     {
         ObjectMapper mapper = new ObjectMapper();
        String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\Data\\testData.json";
-       dataReaderObj = mapper.readValue(new File(path), DataReader.class);
+       dataReaderObj = mapper.readValue(new File(path), JsonPOJO.class);
        return dataReaderObj;
     }
 
