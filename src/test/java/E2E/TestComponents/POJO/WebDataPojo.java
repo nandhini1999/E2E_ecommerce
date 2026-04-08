@@ -1,11 +1,11 @@
-package E2E.TestComponents;
+package E2E.TestComponents.POJO;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.List;
 import java.util.Map;
 
-public class JsonPOJO {
+public class WebDataPojo {
 
     private String email;
     private String password;

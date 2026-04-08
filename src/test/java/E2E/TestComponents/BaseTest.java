@@ -1,6 +1,7 @@
 package E2E.TestComponents;
 
 import E2E.PageObjects.SignIn;
+import E2E.TestComponents.POJO.WebDataPojo;
 import org.apache.commons.io.FileUtils;
 import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
@@ -21,7 +22,7 @@ import java.util.Properties;
 public class BaseTest {
     public WebDriver driver;
     public Properties prop;
-    public static JsonPOJO dataReaderObj;
+    public static WebDataPojo dataReaderObj;
     public Object[][] result;
     public SignIn signIn;
     @BeforeClass(alwaysRun = true)
@@ -64,18 +65,18 @@ public class BaseTest {
     }
 
     @BeforeSuite(alwaysRun = true)
-    public JsonPOJO jsonReader()
+    public WebDataPojo jsonReader()
     {
         ObjectMapper mapper = new ObjectMapper();
-       String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\Data\\testData.json";
-       dataReaderObj = mapper.readValue(new File(path), JsonPOJO.class);
+       String path = System.getProperty("user.dir")+"\\src\\test\\java\\E2E\\Data\\testData.json";
+       dataReaderObj = mapper.readValue(new File(path), WebDataPojo.class);
        return dataReaderObj;
     }
 
     public Map<String,String> getQueries()
     {
         ObjectMapper mapper = new ObjectMapper();
-        String path = System.getProperty("user.dir")+"\\src\\main\\java\\E2E\\Data\\queries.json";
+        String path = System.getProperty("user.dir")+"\\src\\test\\java\\E2E\\Data\\queries.json";
        Map<String,String> data = mapper.readValue(new File(path),new TypeReference<Map<String,String>>(){});
        return data;
     }

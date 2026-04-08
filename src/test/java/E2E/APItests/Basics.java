@@ -1,5 +1,7 @@
 package E2E.APItests;
 
+import E2E.TestComponents.POJO.setLatLong;
+import E2E.TestComponents.POJO.setRequest;
 import E2E.utils.JsonInputs;
 import E2E.utils.JsonPathReader;
 import io.restassured.RestAssured;
@@ -7,6 +9,9 @@ import io.restassured.path.json.JsonPath;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.Matchers.equalTo;
@@ -23,9 +28,25 @@ public class Basics {
     @Test
     public void postMethod() {
 
+        List<String> types = new ArrayList<>();
+        types.add("shoe park");
+        types.add("shop");
+        setLatLong setLatLongObj = new setLatLong();
+        setLatLongObj.setLat(-38.383494);
+        setLatLongObj.setLng(33.427362);
+        setRequest setReq = new setRequest();
+        setReq.setAccuracy(50);
+        setReq.setAddress("29, side layout, cohen 09");
+        setReq.setLanguage("French-IN");
+        setReq.setWebsite("http://google.com");
+        setReq.setName("Frontline house");
+        setReq.setPhone_number("(+91) 983 893 3937");
+        setReq.setTypes(types);
+        setReq.setLocation(setLatLongObj);
+
         String response = given().log().all().queryParam("Key", "qaclick123")
                 .header("Content-Type", "application/json")
-                .body(JsonInputs.getInputJson()).
+                .body(setReq).
                 when().post("/maps/api/place/add/json").
                 then().extract().response().asPrettyString();
 

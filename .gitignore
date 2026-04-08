@@ -35,6 +35,6 @@ build/
 
 ### VS Code ###
 .vscode/
-
+/ExtentReports/
 ### Mac OS ###
 .DS_Store

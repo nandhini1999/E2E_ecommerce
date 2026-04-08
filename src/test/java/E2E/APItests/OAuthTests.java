@@ -1,10 +1,15 @@
 package E2E.APItests;
 
+import E2E.TestComponents.POJO.getCourseDetails;
+import E2E.TestComponents.POJO.getCourseTypes;
+import E2E.TestComponents.POJO.getFullResponse;
 import E2E.utils.JsonPathReader;
 import io.restassured.RestAssured;
 import io.restassured.path.json.JsonPath;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 import static io.restassured.RestAssured.*;
 
@@ -36,11 +41,17 @@ public class OAuthTests {
     @Test(dependsOnMethods = {"getAccessToken"})
     public void getCourseDetails()
     {
-       String response =  given().log().all()
+      getFullResponse response =  given().log().all()
                 .queryParam("access_token", access_token)
                 .when().get("/getCourseDetails")
-                .then().log().all().extract().response().asString();
+                .then().log().all().extract().response().as(getFullResponse.class);
 
-       System.out.println(response);
+      //Response JSON to Java object
+         for( getCourseDetails course : response.getCourses().getWebAutomation())
+         {
+             System.out.println(course.getCourseTitle());
+             System.out.println(course.getPrice());
+         }
+
     }
 }
