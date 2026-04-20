@@ -3,7 +3,7 @@
 <suite name="TestSuite">
     <test name="Rest Assured API test">
         <classes>
-            <class name="E2E.APItests.DifferentMethods"/>
+            <class name="E2E.APItests.Basics"/>
         </classes>
     </test>
 </suite>
