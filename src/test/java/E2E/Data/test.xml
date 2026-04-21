@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<invoices>
+    <invoice>
+        <id>INV-001</id>
+        <customerName>John Smith</customerName>
+        <amount>1250.00</amount>
+        <tax>125.00</tax>
+        <date>2024-01-15</date>
+        <status>PAID</status>
+    </invoice>
+    <invoice>
+        <id>INV-002</id>
+        <customerName>Jane Doe</customerName>
+        <amount>800.00</amount>
+        <tax>80.00</tax>
+        <date>2024-01-15</date>
+        <status>PENDING</status>
+    </invoice>
+</invoices>

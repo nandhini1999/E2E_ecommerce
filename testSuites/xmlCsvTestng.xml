@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
+<suite name = "FileTests">
+    <test name="XML and CSV file validation">
+        <classes>
+            <class name = "E2E.tests.xmlTest"/>
+            <class name ="E2E.tests.csvTest"/>
+        </classes>
+    </test>
+</suite>

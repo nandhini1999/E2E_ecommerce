@@ -1,6 +1,6 @@
 package E2E.APItests;
 
-import E2E.resources.ExcelReader;
+import E2E.utils.ExcelReader;
 import E2E.utils.JsonInputs;
 import E2E.utils.JsonPathReader;
 import io.restassured.RestAssured;
