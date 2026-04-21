@@ -28,9 +28,9 @@ E2E_ecommerce
 │   ├── main/java
 │   │   ├── pageObjects          # UI Page classes (POM)
 │   │   ├── AbstractComponents   # Reusable page object utilities
-│   │   ├── resources            # Config, ExtentReports, ExcelReader
+│   │   ├── resources            # Config, ExtentReports
 │   │   ├── DBConnection         # Database connection handling
-│   │   └── utils                # JsonPathReader, Request/Response specs
+│   │   └── utils                # JsonPathReader, Request/Response specs, ExcelReader,CSVReader,XMLReader
 │   │
 │   ├── test/java
 │   │   ├── tests                # UI & API test classes
@@ -40,6 +40,7 @@ E2E_ecommerce
 │   │        ├── testng.xml
 │   │        ├── dbtestng.xml
 │   │        ├── exceltestng.xml
+│   │        ├── xmlCsvTestng.xml
 │   │        └── APItestng.xml
 │
 │── ExtentReports               # Reports & screenshots
